@@ -102,3 +102,16 @@ def webform(request):
     form=WebpageForm()
     return render(request,'mdoelform.html',{'form':form})
 
+def create_user(request):
+    if request.method=="POST":
+        user=UserModelForm(request.POST)
+        if user.is_valid():
+            password=user.cleaned_data['password']
+            #user=user.save(commit=False)
+            user.set_password(password)#encrypt the password
+            user.save()
+    form=UserModelForm()
+    return render(request,"mdoelform.html",{'form':form})
+
+def filter_demo(request):
+    return render(request,"filter_demo.html",{'data':"hello world",'a':10,'b':20,'num':1})
